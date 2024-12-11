@@ -1,13 +1,12 @@
 import { useForm, Controller } from "react-hook-form";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { userschema } from "../../schema/UserSchema";
-import { createuser } from "../../redux/slices/userslice/userslice";
+import { userschema } from "../../../schema/userschema";
+import { createuser } from "../../../redux/slices/userslice/userslice";
 import { useDispatch } from "react-redux";
-import { auth } from "../../firebase/config/fireconfig";
 const RegisterForm = () => {
-const dispatch=useDispatch()
-
+  const dispatch = useDispatch();
+const 
   const {
     handleSubmit,
     reset,
@@ -17,27 +16,24 @@ const dispatch=useDispatch()
     resolver: yupResolver(userschema),
     mode: "onChange",
     defaultValues: {
-      name: "",
       email: "",
       password: "",
-      confirm_password: "",
     },
   });
 
-
   // handel register function
   const handelRegister = (data) => {
-    try{
-      dispatch(createuser(data)).unwarp()
-      .then((data)=>console.log(data))
-      .catch((error)=>console.log(error))
-    }catch(error){
-      console.log(error)
+    try {
+      dispatch(createuser(data))
+        .unwarp()
+        .then((data) => console.log(data))
+        .catch((error) => console.log(error));
+    } catch (error) {
+      console.log(error);
     }
-   reset()
+    reset();
   };
-console.log(errors,"eror")
-console.log(auth,"current user ------->")
+  console.log(errors, "eror");
   return (
     <Box
       sx={{
@@ -47,8 +43,6 @@ console.log(auth,"current user ------->")
         height: "100vh ",
       }}
       style={{
-      
-
         backgroundPosition: "bottom", // Controls the position of the background
         backgroundRepeat: "no-repeat", // Ensures the image doesn't repeat
         backgroundSize: "cover", // Makes the background cover the container
@@ -57,7 +51,7 @@ console.log(auth,"current user ------->")
       <Box
         sx={{
           display: "flex",
-          flexWrap:"wrap",
+          flexWrap: "wrap",
           justifyContent: "center",
           alignItems: "center",
           p: "40px 0",
@@ -92,7 +86,7 @@ console.log(auth,"current user ------->")
               marginBottom: "5px",
             }}
           >
-            Create Your Account
+            Log In Your Account
           </Typography>
           <Typography
             sx={{
@@ -102,45 +96,12 @@ console.log(auth,"current user ------->")
               textAlign: "center",
               mb: 3, // Adds spacing below the description
             }}
-          >
-            Please fill in the form below to get started. Already have an
-            account?{" "}
-          </Typography>
+          ></Typography>
           <Box className="p-2 w-[100%] ">
             <form
               className="flex flex-col h-[350px] justify-between  "
               onSubmit={handleSubmit(handelRegister)}
             >
-              {/* name */}
-              <Box>
-                <Controller
-                  name="name"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      id="outlined-basic"
-                      label="Name"
-                      variant="outlined"
-                      error={!!errors.name} // Show error if field has an error
-                      helperText={errors.name ? errors.name.message : ""}
-                      sx={{
-                        width: "100%",
-                        "& .MuiOutlinedInput-root": {
-                          "&.Mui-focused input": {
-                            // color: "#FF4F5A",
-                            color: "black", // Text color when focused
-                          },
-                        },
-                        "& .MuiInputLabel-root.Mui-focused": {
-                          color: "#FF4F5A", // Label color when focused
-                        },
-                      }}
-                      {...field}
-                    />
-                  )}
-                />
-              </Box>
-              {/* ---- */}
 
               {/* email input */}
               <Box>
@@ -202,52 +163,20 @@ console.log(auth,"current user ------->")
                   )}
                 />
               </Box>
-              {/* ---- */}
-
-              {/* confirm password */}
-              <Box>
-                <Controller
-                  name="confirm_password"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      id="outlined-basic"
-                      label=" Confirm Password"
-                      variant="outlined"
-                      error={!!errors.confirm_password}
-                      helperText={errors.confirm_password?.message}
-                      sx={{
-                        width: "100%",
-                        "& .MuiOutlinedInput-root": {
-                          "&.Mui-focused input": {
-                            // color: "#FF4F5A",
-                            color: "black", // Text color when focused
-                          },
-                        },
-                        "& .MuiInputLabel-root.Mui-focused": {
-                          color: "#FF4F5A", // Label color when focused
-                        },
-                      }}
-                      {...field}
-                    />
-                  )}
-                />
-              </Box>
-              {/* ---- */}
+              {/* ---- */}     
               <Button
                 type="submit"
                 variant={"contained"}
-                
                 sx={{
                   textTransform: "none",
                   height: "50px",
-                  backgroundColor:"blue",
+                  backgroundColor: "blue",
                   // backgroundColor:"white",
                   fontSize: "22px",
                   fontWeight: "400",
                 }}
               >
-                sing up
+                Sign in
               </Button>
             </form>
           </Box>
